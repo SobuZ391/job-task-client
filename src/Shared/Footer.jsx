@@ -43,20 +43,7 @@ const Footer = () => {
 					</li>
 				</ul>
 			</div>
-			<div className="space-y-3">
-				<h3 className="uppercase ">Artist</h3>
-				<ul className="space-y-1">
-					<li>
-						<a rel="noopener noreferrer" href="#">Alice Smith - Watercolor Artist</a>
-					</li>
-					<li>
-						<a rel="noopener noreferrer" href="#">David Johnson - Acrylic Painter</a>
-					</li>
-					<li>
-						<a rel="noopener noreferrer" href="#">Emily Brown - Mixed Media Artist</a>
-					</li>
-				</ul>
-			</div>
+			
 			<div className="space-y-3">
 				<div className="uppercase ">Social media</div>
 				<div className="flex justify-start space-x-3">

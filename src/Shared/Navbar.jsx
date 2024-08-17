@@ -51,13 +51,13 @@ const Navbar = () => {
                         </ul>
                     </div>
                     <Link to='/' className="btn btn-ghost  font-bold lg:w-[100%]   w-[50%] lg:text-xl">
-                    AshBorn   Gallery </Link>
+                    AshBorn   Ecomerce</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal items-center px-1">
                     <Link className='btn text-lg  btn-ghost' to='/' >Home</Link>
                     <Link to='/products' className='btn text-lg  btn-ghost' >Products</Link>
-                    <Link to='/About' className='btn text-lg  btn-ghost' >About</Link>
+                    <Link to='/contact' className='btn text-lg  btn-ghost' >Contact</Link>
                 
                          
                     </ul>

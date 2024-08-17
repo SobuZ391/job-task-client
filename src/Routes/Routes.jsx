@@ -12,6 +12,8 @@ import ProductList from "../pages/ProductList";
 import PrivateRoute from './../PrivateRoute/PrivateRoute';
 import Error from './../Shared/Error';
 import Home from "../pages/Home";
+import About from "../pages/Contact";
+import Contact from "../pages/Contact";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
         
       },
     
+      {
+        path:'/Contact',
+        element:<Contact></Contact>
+      },
       {
         path:'/login',
         element:<Login></Login>

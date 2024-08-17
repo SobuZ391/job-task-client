@@ -4,8 +4,8 @@ import Pagination from "../Components/Pagination";
 import ProductCard from "../Components/ProductCard";
 
 const ProductList = () => {
-  const [allProducts, setAllProducts] = useState([]); // Store all products fetched from the backend
-  const [filteredProducts, setFilteredProducts] = useState([]); // Store the filtered products based on search and filters
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -18,9 +18,8 @@ const ProductList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const PRODUCTS_PER_PAGE = 9; // Set the number of products per page to 9
+  const PRODUCTS_PER_PAGE = 9;
 
-  // Fetch all products once when the component mounts
   useEffect(() => {
     setIsLoading(true);
     fetch(`http://localhost:5000/products?limit=1000`)
@@ -40,11 +39,10 @@ const ProductList = () => {
       });
   }, []);
 
-  // Debounced function to handle search term changes
   const debouncedSetSearchTerm = useCallback(
     debounce((newSearchTerm) => {
       setSearchTerm(newSearchTerm);
-      setCurrentPage(1); // Reset to page 1 for new search
+      setCurrentPage(1);
     }, 300),
     []
   );
@@ -53,39 +51,21 @@ const ProductList = () => {
     debouncedSetSearchTerm(event.target.value);
   };
 
-  // Filter products based on search term, category, brand, and price range
   const filterProducts = useCallback(() => {
-    let filtered = allProducts;
-
-    if (searchTerm) {
-      const lowercasedSearchTerm = searchTerm.toLowerCase();
-      filtered = filtered.filter((product) =>
-        product.productName?.toLowerCase().includes(lowercasedSearchTerm)
-      );
-    }
-
-    if (selectedBrand) {
-      filtered = filtered.filter((product) => product.brand === selectedBrand);
-    }
-
-    if (selectedCategory) {
-      filtered = filtered.filter((product) => product.category === selectedCategory);
-    }
-
-    if (minPrice) {
-      filtered = filtered.filter((product) => product.price >= parseFloat(minPrice));
-    }
-
-    if (maxPrice) {
-      filtered = filtered.filter((product) => product.price <= parseFloat(maxPrice));
-    }
+    let filtered = allProducts.filter(product => 
+      (!searchTerm || product.productName.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (!selectedBrand || product.brand === selectedBrand) &&
+      (!selectedCategory || product.category === selectedCategory) &&
+      (!minPrice || product.price >= parseFloat(minPrice)) &&
+      (!maxPrice || product.price <= parseFloat(maxPrice))
+    );
 
     if (sortBy === "price_asc") {
-      filtered = filtered.sort((a, b) => a.price - b.price);
+      filtered.sort((a, b) => a.price - b.price);
     } else if (sortBy === "price_desc") {
-      filtered = filtered.sort((a, b) => b.price - a.price);
+      filtered.sort((a, b) => b.price - a.price);
     } else if (sortBy === "dateAdded_desc") {
-      filtered = filtered.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+      filtered.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
     }
 
     setTotalProducts(filtered.length);
@@ -97,62 +77,55 @@ const ProductList = () => {
     filterProducts();
   }, [searchTerm, selectedBrand, selectedCategory, minPrice, maxPrice, sortBy, filterProducts]);
 
-  // Paginate filtered products
   const currentProducts = filteredProducts.slice(
     (currentPage - 1) * PRODUCTS_PER_PAGE,
     currentPage * PRODUCTS_PER_PAGE
   );
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold mb-4">Product List</h1>
 
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <input
           type="text"
           placeholder="Search by product name"
           onChange={handleSearchChange}
           className="p-2 border rounded w-full"
         />
-      </div>
-
-      <div className="mb-4 flex space-x-4">
         <select
           value={selectedBrand}
           onChange={(e) => setSelectedBrand(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full"
         >
           <option value="">All Brands</option>
           <option value="Logitech">Logitech</option>
           <option value="Sony">Sony</option>
           <option value="Samsung">Samsung</option>
         </select>
-
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full"
         >
           <option value="">All Categories</option>
           <option value="Electronics">Electronics</option>
           <option value="Footwear">Footwear</option>
           <option value="Home Appliances">Home Appliances</option>
         </select>
-
         <input
           type="number"
           placeholder="Min Price"
           value={minPrice}
           onChange={(e) => setMinPrice(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full"
         />
-
         <input
           type="number"
           placeholder="Max Price"
           value={maxPrice}
           onChange={(e) => setMaxPrice(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full"
         />
       </div>
 
@@ -172,7 +145,7 @@ const ProductList = () => {
         <p>Total Products: {totalProducts}</p>
       </div>
 
-      <div className="grid grid-cols-1  lg:grid-cols-3  lg:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -185,7 +158,7 @@ const ProductList = () => {
           <p>No products found.</p>
         )}
       </div>
-      
+
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
