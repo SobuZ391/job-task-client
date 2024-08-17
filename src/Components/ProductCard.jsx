@@ -3,31 +3,27 @@ import React from "react";
 const ProductCard = ({ product }) => {
   return (
     <>
-    <div className="border p-4 rounded shadow">
-      <h2 className="text-xl font-bold">{product.productName}</h2>
-      <img src={product.productImage} alt="" />
-      <p className="text-gray-600">Brand: {product.brand}</p>
-      <p className="text-gray-600">Category: {product.category}</p>
-      <p className="text-gray-800 font-semibold">Price: ${product.price}</p>
-      <p className="text-gray-500 text-sm">Added on: {product.createdAt }</p>
-    </div>
+    
     <div>
-      <div className="card bg-base-100 w-96 shadow-xl">
+      <div className="card bg-base-100 w-96 h-[28rem] shadow-xl">
   <figure>
     <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+    className="w-full h-96 object-contain "
+      src={product.productImage}
       alt="Shoes" />
   </figure>
   <div className="card-body">
     <h2 className="card-title">
-      Shoes!
-      <div className="badge badge-secondary">NEW</div>
+    {product.productName}
+      <div className="badge badge-primary">Brand: {product.brand}</div>
     </h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
-    <div className="card-actions justify-end">
-      <div className="badge badge-outline">Fashion</div>
-      <div className="badge badge-outline">Products</div>
-    </div>
+    <div className="card-actions ">
+     
+     <div >Added on: <span className="badge badge-outline">{product.createdAt }</span></div>
+   </div>
+    <p>Category:{product.category}</p>
+    <p>Price: ${product.price}</p>
+  
   </div>
 </div>
     </div>
