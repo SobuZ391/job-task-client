@@ -97,7 +97,7 @@ const Login = () => {
                                 New here? <Link to="/register" className="label-text-alt link link-hover">Create an account</Link>
                             </label>
                         </form>
-                        <SocialLogin />
+                        <div className='w-full'><SocialLogin /></div>
                     </div>
                 </div>
                 <ToastContainer />

@@ -31,11 +31,18 @@ const FirebaseProvider = ({children}) => {
           });
     }
 
-    //sign in user
-    const signInUser =(email,password)=>{
-        setLoading(true)
+    const signInUser = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
-    }
+            .catch(error => {
+                console.error('Login Error:', error.message);
+                throw error;  // Re-throw to handle it in the UI components.
+            })
+            .finally(() => setLoading(false));
+    };
+    
+    // Similarly, add error handling to other functions like `createUser`, `googleLogin`, etc.
+    
     //google login
     const googleLogin =()=>{
        setLoading(true)
@@ -55,18 +62,18 @@ const FirebaseProvider = ({children}) => {
     }
 
 
-
-    //observer
-    useEffect(()=>{
-       const unsubscribe = onAuthStateChanged(auth, (user) => {
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-             setUser(user)
-             setLoading(false)
+                setUser(user);
+            } else {
+                setUser(null);
             }
-          });
-          return () =>  unsubscribe
-    },[])
-
+            setLoading(false);
+        });
+        return () => unsubscribe();  // Invoke the function to unsubscribe.
+    }, []);
+    
 
 
 

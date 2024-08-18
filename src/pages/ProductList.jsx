@@ -22,7 +22,7 @@ const ProductList = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`http://localhost:5000/products?limit=1000`)
+    fetch(`https://job-task-server-orpin.vercel.app/products?limit=1000`)
       .then((res) => res.json())
       .then((data) => {
         setAllProducts(data.products || []);
@@ -84,7 +84,7 @@ const ProductList = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold mb-4">Product List</h1>
+      <h1 className="text-2xl font-bold text-center  border-y p-2   my-4">Product List</h1>
 
       <div className="mb-4 flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
         <input
@@ -142,9 +142,9 @@ const ProductList = () => {
       </div>
 
       <div className="mb-4">
-        <p>Total Products: {totalProducts}</p>
+        <p className="btn ">Total Products: {totalProducts}</p>
       </div>
-
+      <hr className="my-6 " />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {isLoading ? (
           <p>Loading...</p>

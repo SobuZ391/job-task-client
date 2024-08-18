@@ -34,13 +34,11 @@ const SocialLogin = () => {
     };
 
     return (
-        <div className="flex gap-3 my-5 justify-center items-center">
-            <button className="btn" onClick={() => handleSocialLogin(googleLogin)}>
+        <div className="flex gap-3 my-5 p-4  justify-center items-center">
+            <button className="btn w-full" onClick={() => handleSocialLogin(googleLogin)}>
                 <FaGoogle /> Google
             </button>
-            <button className="btn" onClick={() => handleSocialLogin(githubLogin)}>
-                <FaGithub /> GitHub
-            </button>
+          
            
             <ToastContainer />
         </div>

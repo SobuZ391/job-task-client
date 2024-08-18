@@ -43,12 +43,9 @@ const Navbar = () => {
         </label>
                         </div>
                         <Link className='btn text-lg  btn-ghost' to='/' >Home</Link>
-                    <Link to='/allArtCraftItems' className='btn text-lg  btn-ghost' >All Art&Craft Items</Link>
-                     <Link to='/addCraftItem' className='btn text-lg  btn-ghost' >Add Art&Craft Items</Link>
-                     <Link to='/myArtCraftList' className='btn text-lg  btn-ghost' >My Art&Craft List</Link>
-                       
-            
-                        </ul>
+                    <Link to='/products' className='btn text-lg  btn-ghost' >Products</Link>
+                    <Link to='/contact' className='btn text-lg  btn-ghost' >Contact</Link>
+         </ul>
                     </div>
                     <Link to='/' className="btn btn-ghost  font-bold lg:w-[100%]   w-[50%] lg:text-xl">
                     AshBorn   Ecomerce</Link>
